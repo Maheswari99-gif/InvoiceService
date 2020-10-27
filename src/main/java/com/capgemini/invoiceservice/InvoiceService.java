@@ -37,4 +37,9 @@ public class InvoiceService {
 		return this.calculateFare(rideRepository.getRides(userId));
 	}
 
+	public void setRideRepository(RideRepository rideRepository2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

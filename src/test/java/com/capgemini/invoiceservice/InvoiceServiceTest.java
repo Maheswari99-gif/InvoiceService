@@ -7,46 +7,49 @@ import org.junit.Test;
 public class InvoiceServiceTest {
 
 	InvoiceService invoiceService;
+	private RideRepository rideRepository = null;
+	InvoiceSummary expectedInvoiceSummary = null;
+	Ride[] rides = null;
+
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		this.invoiceService = new InvoiceService();
+		rideRepository = new RideRepository();
+		invoiceService.setRideRepository(rideRepository);
+		rides = new Ride[] { new Ride(CabRide.NORMAL, 2.0, 5), new Ride(CabRide.PREMIUM, 0.1, 1) };
+		expectedInvoiceSummary = new InvoiceSummary(2, 45.0);
+
 	}
+
 	@Test
 	public void givenDistanceAndTimeShouldReturnTotalFare() {
 		double distance = 2.0;
 		int time = 5;
 		double fare = invoiceService.calculateFare(distance, time);
-		System.out.println(fare);
 		Assert.assertEquals(25, fare, 0.0);
 	}
+
 	@Test
 	public void givenLessDistanceOrTimeShouldReturnMinFare() {
-		
+
 		double distance = 0.1;
 		int time = 1;
 		double fare = invoiceService.calculateFare(distance, time);
 		Assert.assertEquals(5, fare, 0.0);
 	}
-	
+
 	@Test
 	public void givenMultipleRidesShouldReturnInvoiceSummary() {
-		
-		Ride[] rides = {new Ride(2.0,5), new Ride(0.1,1),};
 		InvoiceSummary summary = invoiceService.calculateFare(rides);
-		InvoiceSummary expectedSummary = new InvoiceSummary(2,30.0);
-		Assert.assertEquals(expectedSummary, summary);
+		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
-	
+
 	@Test
 	public void givenUserIdRidesShouldReturnInvoiceSummary() {
-		String userId="a@b.com";
-		Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1), };
+		String userId = "a@b.com";
 		invoiceService.addRides(userId, rides);
-		InvoiceSummary summary=invoiceService.getInvoiceSummary(userId);
-		System.out.println("Smmary"+summary);
-		InvoiceSummary expectedSummary= new InvoiceSummary(2, 30.0);
-		System.out.println(expectedSummary);
-		Assert.assertEquals(expectedSummary, summary);
+		InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
+		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
 
 }
