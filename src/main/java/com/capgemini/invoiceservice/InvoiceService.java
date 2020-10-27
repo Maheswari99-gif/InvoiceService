@@ -22,4 +22,14 @@ public class InvoiceService {
 		return new InvoiceSummary(rides.length, totalFare);
 	}
 
+	public void addRides(String userId, Ride[] rides) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public InvoiceSummary getInvoiceSummary(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
