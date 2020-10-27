@@ -4,8 +4,13 @@ public class Ride {
 
 	public double distance;
 	public int time;
-	 public Ride(CabRide ride,double distance, int time) {
-		 this.distance = distance;
-		 this.time = time;
-	 }
+	public CabRide cabRide;
+
+	public Ride(CabRide cabRide, double distance, int time) {
+
+		this.cabRide = cabRide;
+		this.distance = distance;
+		this.time = time;
+
+	}
 }
