@@ -43,7 +43,9 @@ public class InvoiceServiceTest {
 		Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1), };
 		invoiceService.addRides(userId, rides);
 		InvoiceSummary summary=invoiceService.getInvoiceSummary(userId);
+		System.out.println("Smmary"+summary);
 		InvoiceSummary expectedSummary= new InvoiceSummary(2, 30.0);
+		System.out.println(expectedSummary);
 		Assert.assertEquals(expectedSummary, summary);
 	}
 

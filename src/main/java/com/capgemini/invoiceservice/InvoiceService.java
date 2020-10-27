@@ -5,6 +5,10 @@ public class InvoiceService {
 	public static final double MINIMUM_COST_PER_KILOMETER = 10.0;
 	public static final int COST_PER_TIME = 1;
 	public static final double MINIMUM_FARE = 5.0;
+	private RideRepository rideRepository;
+	public InvoiceService() {
+		this.rideRepository = new RideRepository();
+	}
 
 	public double calculateFare(double distance, int time) {
 		// TODO Auto-generated method stub
@@ -24,12 +28,13 @@ public class InvoiceService {
 
 	public void addRides(String userId, Ride[] rides) {
 		// TODO Auto-generated method stub
-		
+		rideRepository.addRide(userId, rides);
+
 	}
 
 	public InvoiceSummary getInvoiceSummary(String userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.calculateFare(rideRepository.getRides(userId));
 	}
 
 }
